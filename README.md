@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <a href="https://your-live-link.com">
+  <a href="https://quick-gpt-chi-dusky.vercel.app">
     <img src="https://img.shields.io/badge/Live-Demo-green?style=for-the-badge&logo=vercel" />
   </a>
 </p>
