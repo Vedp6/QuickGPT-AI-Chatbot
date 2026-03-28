@@ -13,8 +13,7 @@ const app = express()
 await connectDB()
 
 // Stripe Webhooks
-app.post('/api/stripe', express.raw({type: 'application/json'})
-, stripeWebhooks)
+app.post('/api/stripe', express.raw({type: 'application/json'}), stripeWebhooks)
 
 //Middleware
 app.use(cors())
@@ -32,3 +31,5 @@ const  PORT = process.env.PORT || 3000
 app.listen(PORT, ()=>{
     console.log(`Server is running on port ${PORT}`)
 })
+
+

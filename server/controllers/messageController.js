@@ -37,10 +37,9 @@ export const textMessageController = async (req, res) => {
       ],
     });
 
-    const reply = {
-      ...choices[0].message,
+    const reply = {...choices[0].message,
       timestamp: Date.now(),
-      isImage: false,
+      isImage: false
     };
     res.json({ success: true, reply });
     chat.messages.push(reply);
@@ -48,6 +47,7 @@ export const textMessageController = async (req, res) => {
 
     await User.updateOne({ _id: userId }, { $inc: { credits: -1 } });
   } catch (error) {
+    
     res.json({ success: false, message: error.message });
   }
 };
@@ -75,25 +75,25 @@ export const imageMessageController = async (req, res) => {
       role: "user",
       content: prompt,
       timestamp: Date.now(),
-      isImage: false,
+      isImage: false
     });
 
     //Encoded prompt
     const encodedPrompt = encodeURIComponent(prompt);
 
     //construct imagekit AI generation URL
-    const generatedImageUrl = `${process.env.IMAGEKIT_URL_ENDPOINT}/ik-genimg-prompt-${encodedPrompt}/qucikgpt/${Date.now()}.png?tr-w-800, h-800`;
+    const generatedImageUrl = `${process.env.IMAGEKIT_URL_ENDPOINT }/ik-genimg-prompt-${encodedPrompt}/quickgpt/${Date.now()}.png?tr-w-800, h-800`;
 
     // Trigger generation by fetching from imagekit
 
     const aiImageResponse = await axios.get(generatedImageUrl, {
-      responseType: "arraybuffer",
+      responseType: "arraybuffer" 
     });
 
     //convert to base64
-    const base64Image = `date:image/png;base64,${Buffer.from(aiImageResponse.data, "binary").toString("base64")}`;
+    const base64Image = `date:image/png;base64,${Buffer.from(aiImageResponse.data, "binary").toString('base64')}`;
 
-    //upload to imagekit media library
+    //upload to Imagekit media library
     const uploadResponse = await imagekit.upload({
       file: base64Image,
       fileName: `${Date.now()}.png`,
